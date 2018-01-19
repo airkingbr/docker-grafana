@@ -15,7 +15,7 @@ RUN wget https://github.com/neuralfraud/grafana-prtg/archive/master.zip
 RUN unzip master.zip -d /var/lib/grafana/plugins/
 RUN rm master.zip 
 RUN grafana-cli plugins install alexanderzobnin-zabbix-app 
-
+RUN service grafana-server restart
 
 EXPOSE 3000
 
