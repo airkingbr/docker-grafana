@@ -10,23 +10,12 @@ RUN apt-get update && apt-get install -y \
 	wget \
 	unzip
 
-RUN cd /var/lib/grafana/plugins
+RUN mkdir -p  /var/lib/grafana/plugins
 RUN wget https://github.com/neuralfraud/grafana-prtg/archive/master.zip
-RUN unzip master.zip 
+RUN unzip master.zip -d /var/lib/grafana/plugins/
 RUN rm master.zip 
+RUN grafana-cli plugins install alexanderzobnin-zabbix-app 
 
 
+EXPOSE 3000
 
-
-
-
-
-
-
-
-
-EXPOSE 53/udp
-EXPOSE 53
-
-#CMD ["/etc/init.d/unbound", "restart"]
-ENTRYPOINT /etc/init.d/unbound restart && bash
