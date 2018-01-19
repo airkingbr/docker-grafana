@@ -26,11 +26,14 @@ docker run \
   nexthop/docker-grafana
 ```
 
+
 Para verificar o status:
 
 ```sh
 $ docker ps
 ```
  
+
+
 
 Dúvidas ou informações: <elizandro@nexthop.net.br>
