@@ -1,21 +1,13 @@
-FROM grafana/grafana
+FROM nexthopsolutions/zabbix-grafana-base
 MAINTAINER elizandro@nexthop.net.br
 
 
 WORKDIR /
 
-RUN apt-get update && apt-get install -y \
-	dnsutils \
-	htop \
-	wget \
-	unzip
+RUN apt-get update
 
-RUN mkdir -p  /var/lib/grafana/plugins
-RUN wget https://github.com/neuralfraud/grafana-prtg/archive/master.zip
-RUN unzip master.zip -d /var/lib/grafana/plugins/
-RUN rm master.zip 
-RUN grafana-cli plugins install alexanderzobnin-zabbix-app 
-RUN service grafana-server restart
+RUN /etc/rc.local
 
 EXPOSE 3000
+EXPOSE 80
 
