@@ -21,7 +21,7 @@ docker run \
   -p 10051:10051 \
   -p 3001:80 \
   --name=grafana \
-  nexthopsolutions/zabbix-grafana-base
+  nexthopsolutions/docker-grafana
 ```
 
 
