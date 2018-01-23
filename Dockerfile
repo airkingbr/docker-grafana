@@ -6,7 +6,8 @@ WORKDIR /
 
 RUN apt-get update
 
-RUN /etc/rc.local
+ENTRYPOINT /etc/rc.local
+
 
 EXPOSE 3000
 EXPOSE 80
