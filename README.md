@@ -6,9 +6,6 @@
 Container Docker para grafana com plugins do zabbix e prtg inclusos.
 
 
-A imagem por padrão, binda a porta 3000 tcp do container.
-
-Certifique-se que ela está liberada.
 
 ### Criando e inicializando o container:
 
@@ -31,7 +28,32 @@ Para verificar o status:
 $ docker ps
 ```
  
+### Monitoramento via zabbix:
 
+
+Adicionar ao unbound.conf:
+
+extended-statistics: yes
+
+Adicionar em /etc/zabbix/zabbix_agentd.d/userparameter_unbound.conf:
+
+````sh
+UserParameter=unbound.type[*],echo -n 0; sudo /usr/sbin/unbound-control stats_noreset | grep num.query.type.$1= | cut -d= -f2
+UserParameter=unbound.mem[*],echo -n 0; sudo /usr/sbin/unbound-control stats_noreset | grep mem.$1= | cut -d= -f2
+UserParameter=unbound.flag[*],sudo /usr/sbin/unbound-control stats_noreset | grep num.query.$1= | cut -d= -f2
+UserParameter=unbound.total[*],sudo /usr/sbin/unbound-control stats_noreset | grep total.num.$1= | cut -d= -f2
+UserParameter=unbound.rcode[*],sudo /usr/sbin/unbound-control stats_noreset | grep num.answer.rcode.$1= | cut -d= -f2
+```
+
+Adicionar ao /etc/sudoers:
+
+```sh
+zabbix ALL = NOPASSWD: /usr/sbin/unbound-control
+```
+
+Instalar o template da pasta assets no zabbix server.
+
+Go! 
 
 
 Dúvidas ou informações: <elizandro@nexthop.net.br>
