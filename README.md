@@ -12,18 +12,15 @@ Certifique-se que ela está liberada.
 
 ### Criando e inicializando o container:
 
-Defina o parâmetro GF_SECURITY_ADMIN_PASSWORD para setar a senha do seu grafana.
-
-E GF_SERVER_ROOT_URL para setar o seu hostname.
 
 ```sh
 docker run \
+  --restart always \
   -d \
   -p 3000:3000 \
+  -p 3001:80 \
   --name=grafana \
-  -e "GF_SERVER_ROOT_URL=http://grafana.nexthop.net.br" \
-  -e "GF_SECURITY_ADMIN_PASSWORD=senhadografana" \
-  nexthop/docker-grafana
+  nexthopsolutions/zabbix-grafana-base
 ```
 
 
