@@ -11,10 +11,15 @@ Container Docker para grafana com plugins do zabbix e prtg inclusos.
 
 
 ```sh
+mkdir logs/apache2 -p
+mkdir logs/zabbix -p
+mkdir logs/grafana -p
 docker run \
   --restart always \
   -itd \
   -v $('pwd')/logs/apache2:/var/log/apache2 \
+  -v $('pwd')/logs/zabbix:/var/log/zabbix \
+  -v $('pwd')/logs/grafana:/var/log/grafana \
   -p 3000:3000 \
   -p 10051:10051 \
   -p 3001:80 \
