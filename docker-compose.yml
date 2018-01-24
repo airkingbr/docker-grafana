@@ -1,0 +1,10 @@
+version: '3'
+services:
+  grafana:
+    build: .
+#    ports:
+#     - "3000:3000"
+#     - "80:80"
+#     - "10051:10051"
+#    volumes:
+#     - ./logs/apache2:/var/log/apache2

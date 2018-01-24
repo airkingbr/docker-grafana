@@ -13,11 +13,13 @@ Container Docker para grafana com plugins do zabbix e prtg inclusos.
 ```sh
 docker run \
   --restart always \
-  -d \
+  -itd \
+  -v $('pwd')/logs/apache2:/var/log/apache2 \
   -p 3000:3000 \
   -p 10051:10051 \
   -p 3001:80 \
-  --name=grafana \
+  --name=nexthop-grafana \
+  --hostname nexthop-grafana \
   nexthopsolutions/docker-grafana
 ```
 
@@ -37,7 +39,7 @@ extended-statistics: yes
 
 Adicionar em /etc/zabbix/zabbix_agentd.d/userparameter_unbound.conf:
 
-````sh
+```sh
 UserParameter=unbound.type[*],echo -n 0; sudo /usr/sbin/unbound-control stats_noreset | grep num.query.type.$1= | cut -d= -f2
 UserParameter=unbound.mem[*],echo -n 0; sudo /usr/sbin/unbound-control stats_noreset | grep mem.$1= | cut -d= -f2
 UserParameter=unbound.flag[*],sudo /usr/sbin/unbound-control stats_noreset | grep num.query.$1= | cut -d= -f2
@@ -47,9 +49,11 @@ UserParameter=unbound.rcode[*],sudo /usr/sbin/unbound-control stats_noreset | gr
 
 Adicionar ao /etc/sudoers:
 
+
 ```sh
 zabbix ALL = NOPASSWD: /usr/sbin/unbound-control
 ```
+
 
 Instalar o template da pasta assets no zabbix server.
 

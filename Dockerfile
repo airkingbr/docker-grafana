@@ -3,12 +3,12 @@ MAINTAINER elizandro@nexthop.net.br
 
 
 WORKDIR /
-
-RUN apt-get update
+VOLUME ["/var/log"]
 
 
 
 EXPOSE 3000
 EXPOSE 10051
 EXPOSE 80
-#ENTRYPOINT /etc/rc.local && bash
+
+ENTRYPOINT /etc/rc.local && /bin/bash
